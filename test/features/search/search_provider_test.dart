@@ -69,5 +69,44 @@ void main() {
       expect(firstResult.score, equals(8.95));
       expect(firstResult.highlights, contains('<mark>Machine Learning</mark> foundations'));
     });
+
+    test('OmSearchResponse parses real live response from Render deployment', () {
+      final liveRenderPayload = {
+        'query': 'test',
+        'total': 45,
+        'page': 1,
+        'size': 10,
+        'total_pages': 5,
+        'took_ms': 40.13,
+        'results': [
+          {
+            'id': '3037f02d7418d96f',
+            'url': 'https://arcol.io/customer-stories/how-slantis-uses-arcol-to-move-faster-test-smarter-and-design-together',
+            'canonical_url': 'https://arcol.io/customer-stories/how-slantis-uses-arcol-to-move-faster-test-smarter-and-design-together',
+            'domain': 'arcol.io',
+            'title': 'How Slantis Uses Arcol To Move Faster Test Smarter And Design Together',
+            'snippet': 'Live crawled real-web document from arcol.io. Indexed by OM Search crawler.',
+            'language': 'en',
+            'score': 1.405,
+            'highlights': ['Live crawled real-web document from arcol.io. Indexed by OM Search crawler.']
+          }
+        ],
+        'is_early_index': true,
+        'message': 'Results retrieved and ranked by Phase 3 intelligence pipeline',
+        'query_intent': 'general',
+        'spelling_suggestion': null,
+        'ranking_version': '3.0.0'
+      };
+
+      final response = OmSearchResponse.fromJson(liveRenderPayload);
+
+      expect(response.query, equals('test'));
+      expect(response.total, equals(45));
+      expect(response.totalPages, equals(5));
+      expect(response.tookMs, equals(40.13));
+      expect(response.results.length, equals(1));
+      expect(response.results.first.domain, equals('arcol.io'));
+      expect(response.results.first.score, equals(1.405));
+    });
   });
 }

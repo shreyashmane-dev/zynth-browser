@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../../core/theme/app_colors.dart';
 import '../browser_controller.dart';
+import '../../search/presentation/zynth_search_results_view.dart';
 import 'widgets/browser_app_bar.dart';
 import 'widgets/browser_bottom_bar.dart';
 import 'widgets/browser_home_view.dart';
@@ -41,7 +42,7 @@ class _BrowserScreenState extends State<BrowserScreen> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: _controller.isHomeView && !_controller.canGoBack,
+      canPop: _controller.isHomeView && !_controller.canGoBack && !_controller.isSearchResultsView,
       onPopInvokedWithResult: (didPop, result) async {
         if (didPop) return;
 
@@ -49,8 +50,7 @@ class _BrowserScreenState extends State<BrowserScreen> {
         if (_controller.canGoBack) {
           await _controller.goBack();
         } else if (!_controller.isHomeView) {
-          // If viewing web page but can't go back, return to Zynth Home
-          _controller.goHome();
+          await _controller.goBack();
         }
       },
       child: Scaffold(
@@ -87,6 +87,13 @@ class _BrowserScreenState extends State<BrowserScreen> {
 
     if (_controller.isHomeView) {
       return BrowserHomeView(controller: _controller);
+    }
+
+    if (_controller.isSearchResultsView && _controller.searchQuery != null) {
+      return ZynthSearchResultsView(
+        query: _controller.searchQuery!,
+        controller: _controller,
+      );
     }
 
     if (_controller.webViewController != null) {

@@ -12,7 +12,7 @@ class PreferencesService {
 
   // In-memory fallbacks
   String _memoryEngine = AppConstants.engineZynthId;
-  String _memoryBackendUrl = AppConstants.defaultOmSearchLocalhost;
+  String _memoryBackendUrl = AppConstants.defaultOmSearchBackend;
   String _memoryThemeMode = 'dark';
   bool _memoryAdBlock = true;
   bool _memoryJsEnabled = true;

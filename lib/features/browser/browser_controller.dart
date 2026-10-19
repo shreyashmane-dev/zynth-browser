@@ -28,6 +28,8 @@ class BrowserController extends ChangeNotifier {
   bool _canGoForward = false;
   bool _isSecure = false;
   bool _isHomeView = true;
+  bool _isSearchResultsView = false;
+  String? _searchQuery;
 
   // Error & Offline State
   bool _hasError = false;
@@ -61,6 +63,8 @@ class BrowserController extends ChangeNotifier {
   bool get canGoForward => _canGoForward;
   bool get isSecure => _isSecure;
   bool get isHomeView => _isHomeView;
+  bool get isSearchResultsView => _isSearchResultsView;
+  String? get searchQuery => _searchQuery;
   bool get hasError => _hasError;
   String? get errorMessage => _errorMessage;
   String? get failedUrl => _failedUrl;
@@ -206,10 +210,36 @@ class BrowserController extends ChangeNotifier {
       _hasError = true;
       _errorMessage = parseResult.errorMessage ?? 'URL scheme is blocked for security.';
       _isHomeView = false;
+      _isSearchResultsView = false;
       notifyListeners();
       return;
     }
 
+    if (parseResult.isSearchQuery) {
+      final query = parseResult.searchQuery ?? '';
+      final isGoogle = parseResult.explicitProvider == AppConstants.engineGoogleId ||
+          (parseResult.explicitProvider == null && _activeEngine == SearchEngineType.google);
+
+      if (isGoogle) {
+        _isSearchResultsView = false;
+        final destinationUrl = _searchService.resolveDestinationUrl(parseResult);
+        await navigateTo(destinationUrl);
+      } else {
+        // Zynth Search powered by OM Search on Render
+        _hasError = false;
+        _errorMessage = null;
+        _isHomeView = false;
+        _isSearchResultsView = true;
+        _searchQuery = query;
+        _currentUrl = 'about:search?q=${Uri.encodeComponent(query)}';
+        _displayUrl = query;
+        _pageTitle = 'Zynth Search: $query';
+        notifyListeners();
+      }
+      return;
+    }
+
+    _isSearchResultsView = false;
     final destinationUrl = _searchService.resolveDestinationUrl(parseResult);
     await navigateTo(destinationUrl);
   }
@@ -219,9 +249,11 @@ class BrowserController extends ChangeNotifier {
     _hasError = false;
     _errorMessage = null;
     _failedUrl = null;
+    _isSearchResultsView = false;
 
     if (url == AppConstants.homeUrl || url == AppConstants.blankUrl) {
       _isHomeView = true;
+      _searchQuery = null;
       _currentUrl = AppConstants.homeUrl;
       _displayUrl = '';
       _pageTitle = AppConstants.appName;
@@ -247,18 +279,34 @@ class BrowserController extends ChangeNotifier {
     }
   }
 
-  /// Go back in webview history.
+  /// Go back in webview history or return to search results / home.
   Future<void> goBack() async {
     if (_hasError) {
       _hasError = false;
-      _isHomeView = true;
+      if (_searchQuery != null && _searchQuery!.isNotEmpty) {
+        _isSearchResultsView = true;
+        _displayUrl = _searchQuery!;
+      } else {
+        _isHomeView = true;
+      }
       notifyListeners();
+      return;
+    }
+
+    if (_isSearchResultsView) {
+      goHome();
       return;
     }
 
     if (_canGoBack && _webViewController != null) {
       await _webViewController!.goBack();
       await _updateHistoryControls();
+    } else if (_searchQuery != null && !_isSearchResultsView) {
+      // Returned from visited website back to Zynth Search results
+      _isSearchResultsView = true;
+      _displayUrl = _searchQuery!;
+      _pageTitle = 'Zynth Search: $_searchQuery';
+      notifyListeners();
     } else {
       goHome();
     }
@@ -286,7 +334,6 @@ class BrowserController extends ChangeNotifier {
   /// Stop current loading.
   Future<void> stopLoading() async {
     if (_webViewController != null) {
-      // Re-load blank or finish loading state
       _isLoading = false;
       notifyListeners();
     }
@@ -295,6 +342,8 @@ class BrowserController extends ChangeNotifier {
   /// Navigate to Zynth Home.
   void goHome() {
     _isHomeView = true;
+    _isSearchResultsView = false;
+    _searchQuery = null;
     _hasError = false;
     _currentUrl = AppConstants.homeUrl;
     _displayUrl = '';

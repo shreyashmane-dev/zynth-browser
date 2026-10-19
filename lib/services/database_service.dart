@@ -41,7 +41,7 @@ class DatabaseService {
             AppConstants.tableBookmarks,
             {
               'title': 'Zynth Search (OM Search)',
-              'url': 'http://127.0.0.1:8000',
+              'url': 'https://omsearch.onrender.com',
               'createdAt': DateTime.now().millisecondsSinceEpoch,
               'faviconUrl': null,
             },
@@ -56,7 +56,7 @@ class DatabaseService {
           Bookmark(
             id: _memoryIdCounter++,
             title: 'Zynth Search (OM Search)',
-            url: 'http://127.0.0.1:8000',
+            url: 'https://omsearch.onrender.com',
             createdAt: DateTime.now(),
           ),
         );

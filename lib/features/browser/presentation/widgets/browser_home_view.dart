@@ -25,7 +25,7 @@ class _BrowserHomeViewState extends State<BrowserHomeView> {
     {
       'title': 'Zynth Search',
       'subtitle': 'OM Engine',
-      'url': 'http://127.0.0.1:8000',
+      'url': 'https://omsearch.onrender.com',
       'icon': Icons.bolt_rounded,
       'color': AppColors.primary,
     },

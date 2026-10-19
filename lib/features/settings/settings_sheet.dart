@@ -206,7 +206,7 @@ class _SettingsSheetState extends State<SettingsSheet> {
                               style: const TextStyle(color: AppColors.textPrimary, fontSize: 13),
                               decoration: const InputDecoration(
                                 isDense: true,
-                                hintText: 'http://127.0.0.1:8000',
+                                hintText: 'https://omsearch.onrender.com',
                                 contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                               ),
                               onChanged: (val) {
