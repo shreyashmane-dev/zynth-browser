@@ -50,13 +50,18 @@ jobs:
         run: |
           flutter build apk --release -v 2>&1 | tee build_release.log
 
+      - name: Locate Generated APKs
+        run: |
+          echo "=== SEARCHING FOR ALL GENERATED APKS ==="
+          find . -name "*.apk" -ls
+
       - name: Upload All APK Artifacts
         if: success()
         uses: actions/upload-artifact@v4
         with:
           name: zynth-browser-apks
-          path: build/app/outputs/flutter-apk/*.apk
-          if-no-files-found: warn
+          path: "**/*.apk"
+          if-no-files-found: error
 
       - name: Upload Build Logs
         if: always()
