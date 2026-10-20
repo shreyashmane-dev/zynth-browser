@@ -46,16 +46,7 @@ jobs:
         run: flutter test
 
       - name: Build Debug APK
-        run: |
-          flutter build apk --debug -v > build_debug.log 2>&1 || {
-            ERR=$(grep -A 25 "\* What went wrong:" build_debug.log | tr '\n' ' ')
-            if [ -z "$ERR" ]; then
-              ERR=$(grep -C 10 -i "error" build_debug.log | head -n 30 | tr '\n' ' ')
-            fi
-            echo "::error title=Debug Build Failure::$ERR"
-            grep -A 30 "\* What went wrong:" build_debug.log || tail -n 80 build_debug.log
-            exit 1
-          }
+        run: flutter build apk --debug
 
       - name: Build Release APK
         run: flutter build apk --release
