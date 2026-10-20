@@ -42,12 +42,12 @@ class _VisionSelectorSheetState extends State<VisionSelectorSheet> {
     });
     _prefs.setVisionAutoDaily(false);
     _prefs.setSelectedVisionId(vision.id);
-    AppIconService.setAppIcon(vision.dayOfWeek);
+    AppIconService.setAppIcon(vision.dayNumber);
     widget.onVisionSelected(vision);
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Launcher icon updated to ${vision.name} (Day ${vision.dayOfWeek})'),
+        content: Text('Launcher icon updated to ${vision.name} (Day ${vision.dayNumber})'),
         duration: const Duration(seconds: 2),
         backgroundColor: AppColors.surfaceVariant,
         behavior: SnackBarBehavior.floating,
@@ -66,7 +66,7 @@ class _VisionSelectorSheetState extends State<VisionSelectorSheet> {
     _prefs.setSelectedVisionId(enabled ? 'auto' : widget.currentVision.id);
     if (enabled) {
       final todayVision = ZynthVision.forToday();
-      AppIconService.setAppIcon(todayVision.dayOfWeek);
+      AppIconService.setAppIcon(todayVision.dayNumber);
       widget.onVisionSelected(todayVision);
 
       ScaffoldMessenger.of(context).showSnackBar(

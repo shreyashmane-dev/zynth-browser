@@ -53,21 +53,15 @@ class AppIconService {
   /// - If user selected a specific vision: locks the launcher icon to that vision's day.
   static Future<void> syncDailyIcon() async {
     try {
-      final isAuto = await PreferencesService.isVisionAutoDaily();
+      final prefs = PreferencesService();
+      final isAuto = prefs.isVisionAutoDaily();
       if (isAuto) {
         final todayWeekday = DateTime.now().weekday;
         await setAppIcon(todayWeekday);
       } else {
-        final savedVisionId = await PreferencesService.getSelectedVisionId();
-        if (savedVisionId != null) {
-          final matched = ZynthVision.allVisions.firstWhere(
-            (v) => v.id == savedVisionId,
-            orElse: () => ZynthVision.forToday(),
-          );
-          await setAppIcon(matched.dayOfWeek);
-        } else {
-          await setAppIcon(DateTime.now().weekday);
-        }
+        final savedVisionId = prefs.getSelectedVisionId();
+        final vision = ZynthVision.fromId(savedVisionId);
+        await setAppIcon(vision.dayNumber);
       }
     } catch (e) {
       debugPrint('[AppIconService] Error syncing daily icon: $e');
