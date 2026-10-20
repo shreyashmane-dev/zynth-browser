@@ -57,7 +57,7 @@ android {
                 storeFile keystoreFile
                 storePassword 'zynthbrowser'
             } else {
-                signingConfig signingConfigs.debug
+                initWith(signingConfigs.debug)
             }
         }
     }
