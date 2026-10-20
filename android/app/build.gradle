@@ -50,15 +50,10 @@ android {
 
     signingConfigs {
         release {
-            def keystoreFile = file('upload-keystore.jks')
-            if (keystoreFile.exists()) {
-                keyAlias 'upload'
-                keyPassword 'zynthbrowser'
-                storeFile keystoreFile
-                storePassword 'zynthbrowser'
-            } else {
-                initWith(signingConfigs.debug)
-            }
+            keyAlias 'upload'
+            keyPassword 'zynthbrowser'
+            storeFile file('upload-keystore.jks')
+            storePassword 'zynthbrowser'
         }
     }
 

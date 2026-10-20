@@ -44,15 +44,26 @@ jobs:
 
       - name: Build Debug APK
         run: |
-          flutter build apk --debug -v > build_debug.log 2>&1 || (tail -n 120 build_debug.log && exit 1)
+          flutter build apk --debug -v 2>&1 | tee build_debug.log
 
       - name: Build Release APK
         run: |
-          flutter build apk --release -v > build_release.log 2>&1 || (tail -n 120 build_release.log && exit 1)
+          flutter build apk --release -v 2>&1 | tee build_release.log
 
       - name: Upload All APK Artifacts
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: zynth-browser-apks
           path: build/app/outputs/flutter-apk/*.apk
           if-no-files-found: warn
+
+      - name: Upload Build Logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zynth-browser-build-logs
+          path: |
+            build_debug.log
+            build_release.log
+          if-no-files-found: ignore
