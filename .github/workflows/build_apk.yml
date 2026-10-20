@@ -29,6 +29,11 @@ jobs:
           channel: 'stable'
           cache: true
 
+      - name: Setup Gradle 8.4
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.4'
+
       - name: Generate Gradle Wrapper
         run: |
           cd android
