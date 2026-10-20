@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../core/theme/app_colors.dart';
 import '../../../../models/search_engine.dart';
 import '../../browser_controller.dart';
@@ -7,15 +8,14 @@ import '../../browser_controller.dart';
 class ErrorView extends StatelessWidget {
   final BrowserController controller;
 
-  const ErrorView({
-    super.key,
-    required this.controller,
-  });
+  const ErrorView({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     final failedUrl = controller.failedUrl ?? controller.currentUrl;
-    final errorMessage = controller.errorMessage ?? 'Unable to connect to the requested address.';
+    final errorMessage =
+        controller.errorMessage ??
+        'Unable to connect to the requested address.';
     final isZynthEngine = controller.activeEngine == SearchEngineType.zynth;
 
     return Center(
@@ -56,7 +56,10 @@ class ErrorView extends StatelessWidget {
             // Failed URL badge
             if (failedUrl.isNotEmpty) ...[
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: AppColors.surfaceVariant,
                   borderRadius: BorderRadius.circular(8),
@@ -100,7 +103,10 @@ class ErrorView extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
                     foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 12,
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -116,7 +122,10 @@ class ErrorView extends StatelessWidget {
                   style: OutlinedButton.styleFrom(
                     foregroundColor: AppColors.textPrimary,
                     side: const BorderSide(color: AppColors.border),
-                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 18,
+                      vertical: 12,
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -134,7 +143,11 @@ class ErrorView extends StatelessWidget {
                   await controller.setActiveEngine(SearchEngineType.google);
                   controller.retry();
                 },
-                icon: const Icon(Icons.search_rounded, size: 16, color: AppColors.secondary),
+                icon: const Icon(
+                  Icons.search_rounded,
+                  size: 16,
+                  color: AppColors.secondary,
+                ),
                 label: const Text(
                   'Search with Google instead',
                   style: TextStyle(color: AppColors.secondary, fontSize: 13),

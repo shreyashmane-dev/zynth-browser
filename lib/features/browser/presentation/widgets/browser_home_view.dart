@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../core/theme/app_colors.dart';
 import '../../../../models/search_engine.dart';
 import '../../browser_controller.dart';
@@ -9,10 +10,7 @@ import 'provider_selector_sheet.dart';
 class BrowserHomeView extends StatefulWidget {
   final BrowserController controller;
 
-  const BrowserHomeView({
-    super.key,
-    required this.controller,
-  });
+  const BrowserHomeView({super.key, required this.controller});
 
   @override
   State<BrowserHomeView> createState() => _BrowserHomeViewState();
@@ -215,17 +213,32 @@ class _BrowserHomeViewState extends State<BrowserHomeView> {
             child: TextField(
               controller: _searchController,
               textInputAction: TextInputAction.search,
-              style: const TextStyle(color: AppColors.textPrimary, fontSize: 15),
+              style: const TextStyle(
+                color: AppColors.textPrimary,
+                fontSize: 15,
+              ),
               decoration: InputDecoration(
                 hintText: 'Search with ${engine.displayName} or enter URL...',
-                hintStyle: const TextStyle(color: AppColors.textMuted, fontSize: 14),
-                prefixIcon: const Icon(Icons.search_rounded, color: AppColors.textMuted),
+                hintStyle: const TextStyle(
+                  color: AppColors.textMuted,
+                  fontSize: 14,
+                ),
+                prefixIcon: const Icon(
+                  Icons.search_rounded,
+                  color: AppColors.textMuted,
+                ),
                 suffixIcon: IconButton(
-                  icon: const Icon(Icons.arrow_forward_rounded, color: AppColors.primary),
+                  icon: const Icon(
+                    Icons.arrow_forward_rounded,
+                    color: AppColors.primary,
+                  ),
                   onPressed: () => _handleSearchSubmit(_searchController.text),
                 ),
                 border: InputBorder.none,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 14,
+                ),
               ),
               onSubmitted: _handleSearchSubmit,
             ),
@@ -283,12 +296,19 @@ class _BrowserHomeViewState extends State<BrowserHomeView> {
             ),
             child: const Row(
               children: [
-                Icon(Icons.lightbulb_outline_rounded, color: AppColors.warning, size: 18),
+                Icon(
+                  Icons.lightbulb_outline_rounded,
+                  color: AppColors.warning,
+                  size: 18,
+                ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
                     'Tip: Type "@google" or "@zynth" before queries in the address bar to switch engines instantly.',
-                    style: TextStyle(color: AppColors.textSecondary, fontSize: 12),
+                    style: TextStyle(
+                      color: AppColors.textSecondary,
+                      fontSize: 12,
+                    ),
                   ),
                 ),
               ],
@@ -344,10 +364,7 @@ class _BrowserHomeViewState extends State<BrowserHomeView> {
               subtitle,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                color: AppColors.textMuted,
-                fontSize: 10,
-              ),
+              style: const TextStyle(color: AppColors.textMuted, fontSize: 10),
             ),
           ],
         ),

@@ -31,7 +31,8 @@ class OmSearchResultItem {
       title: json['title'] as String? ?? 'Untitled',
       snippet: json['snippet'] as String? ?? '',
       score: (json['score'] as num?)?.toDouble() ?? 0.0,
-      highlights: (json['highlights'] as List<dynamic>?)
+      highlights:
+          (json['highlights'] as List<dynamic>?)
               ?.map((e) => e.toString())
               .toList() ??
           const [],
@@ -83,8 +84,11 @@ class OmSearchResponse {
       size: json['size'] as int? ?? 10,
       totalPages: json['total_pages'] as int? ?? 1,
       tookMs: (json['took_ms'] as num?)?.toDouble() ?? 0.0,
-      results: (json['results'] as List<dynamic>?)
-              ?.map((e) => OmSearchResultItem.fromJson(e as Map<String, dynamic>))
+      results:
+          (json['results'] as List<dynamic>?)
+              ?.map(
+                (e) => OmSearchResultItem.fromJson(e as Map<String, dynamic>),
+              )
               .toList() ??
           const [],
       spellingSuggestion: json['spelling_suggestion'] as String?,

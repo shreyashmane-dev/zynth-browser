@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../core/theme/app_colors.dart';
 import '../../../models/om_search_result.dart';
 import '../../../models/search_engine.dart';
@@ -83,12 +84,19 @@ class _ZynthSearchResultsViewState extends State<ZynthSearchResultsView> {
             const SizedBox(height: 16),
             Text(
               'Searching OM Search for "${widget.query}"...',
-              style: const TextStyle(color: AppColors.textSecondary, fontSize: 14),
+              style: const TextStyle(
+                color: AppColors.textSecondary,
+                fontSize: 14,
+              ),
             ),
             const SizedBox(height: 6),
             const Text(
               'Querying https://omsearch.onrender.com',
-              style: TextStyle(color: AppColors.textMuted, fontSize: 11, fontFamily: 'monospace'),
+              style: TextStyle(
+                color: AppColors.textMuted,
+                fontSize: 11,
+                fontFamily: 'monospace',
+              ),
             ),
           ],
         ),
@@ -102,17 +110,28 @@ class _ZynthSearchResultsViewState extends State<ZynthSearchResultsView> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.cloud_off_rounded, size: 48, color: AppColors.error),
+              const Icon(
+                Icons.cloud_off_rounded,
+                size: 48,
+                color: AppColors.error,
+              ),
               const SizedBox(height: 16),
               const Text(
                 'Search Request Failed',
-                style: TextStyle(color: AppColors.textPrimary, fontSize: 18, fontWeight: FontWeight.w700),
+                style: TextStyle(
+                  color: AppColors.textPrimary,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
               const SizedBox(height: 8),
               Text(
                 _errorMessage!,
                 textAlign: TextAlign.center,
-                style: const TextStyle(color: AppColors.textMuted, fontSize: 13),
+                style: const TextStyle(
+                  color: AppColors.textMuted,
+                  fontSize: 13,
+                ),
               ),
               const SizedBox(height: 24),
               Row(
@@ -122,7 +141,9 @@ class _ZynthSearchResultsViewState extends State<ZynthSearchResultsView> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
                       foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                     onPressed: () => _fetchResults(page: _currentPage),
                     icon: const Icon(Icons.refresh_rounded, size: 16),
@@ -133,11 +154,17 @@ class _ZynthSearchResultsViewState extends State<ZynthSearchResultsView> {
                     style: OutlinedButton.styleFrom(
                       foregroundColor: AppColors.secondary,
                       side: const BorderSide(color: AppColors.secondary),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                     onPressed: () async {
-                      await widget.controller.setActiveEngine(SearchEngineType.google);
-                      widget.controller.handleUserInput('@google ${widget.query}');
+                      await widget.controller.setActiveEngine(
+                        SearchEngineType.google,
+                      );
+                      widget.controller.handleUserInput(
+                        '@google ${widget.query}',
+                      );
                     },
                     icon: const Icon(Icons.public_rounded, size: 16),
                     label: const Text('Search with Google'),
@@ -157,11 +184,19 @@ class _ZynthSearchResultsViewState extends State<ZynthSearchResultsView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.search_off_rounded, size: 48, color: AppColors.textMuted),
+            const Icon(
+              Icons.search_off_rounded,
+              size: 48,
+              color: AppColors.textMuted,
+            ),
             const SizedBox(height: 16),
             Text(
               'No results found for "${widget.query}"',
-              style: const TextStyle(color: AppColors.textPrimary, fontSize: 16, fontWeight: FontWeight.w600),
+              style: const TextStyle(
+                color: AppColors.textPrimary,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
             ),
             const SizedBox(height: 8),
             const Text(
@@ -198,17 +233,27 @@ class _ZynthSearchResultsViewState extends State<ZynthSearchResultsView> {
           ),
           child: Row(
             children: [
-              const Icon(Icons.bolt_rounded, size: 14, color: AppColors.primary),
+              const Icon(
+                Icons.bolt_rounded,
+                size: 14,
+                color: AppColors.primary,
+              ),
               const SizedBox(width: 6),
               Expanded(
                 child: Text(
                   'Found ${_response?.total ?? 0} results in ${(_response?.tookMs ?? 0).toStringAsFixed(1)}ms via OM Search',
-                  style: const TextStyle(color: AppColors.textSecondary, fontSize: 12),
+                  style: const TextStyle(
+                    color: AppColors.textSecondary,
+                    fontSize: 12,
+                  ),
                 ),
               ),
               Text(
                 'Page $_currentPage of ${_response?.totalPages ?? 1}',
-                style: const TextStyle(color: AppColors.textMuted, fontSize: 11),
+                style: const TextStyle(
+                  color: AppColors.textMuted,
+                  fontSize: 11,
+                ),
               ),
             ],
           ),
@@ -226,7 +271,9 @@ class _ZynthSearchResultsViewState extends State<ZynthSearchResultsView> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             OutlinedButton.icon(
-              onPressed: _currentPage > 1 ? () => _fetchResults(page: _currentPage - 1) : null,
+              onPressed: _currentPage > 1
+                  ? () => _fetchResults(page: _currentPage - 1)
+                  : null,
               icon: const Icon(Icons.chevron_left_rounded, size: 18),
               label: const Text('Previous'),
               style: OutlinedButton.styleFrom(
@@ -236,10 +283,15 @@ class _ZynthSearchResultsViewState extends State<ZynthSearchResultsView> {
             ),
             Text(
               'Page $_currentPage',
-              style: const TextStyle(color: AppColors.textSecondary, fontSize: 13, fontWeight: FontWeight.w500),
+              style: const TextStyle(
+                color: AppColors.textSecondary,
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+              ),
             ),
             OutlinedButton.icon(
-              onPressed: (_response != null && _currentPage < _response!.totalPages)
+              onPressed:
+                  (_response != null && _currentPage < _response!.totalPages)
                   ? () => _fetchResults(page: _currentPage + 1)
                   : null,
               icon: const Icon(Icons.chevron_right_rounded, size: 18),
@@ -286,7 +338,11 @@ class _ZynthSearchResultsViewState extends State<ZynthSearchResultsView> {
                       color: AppColors.primaryMuted,
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: const Icon(Icons.public_rounded, size: 12, color: AppColors.primary),
+                    child: const Icon(
+                      Icons.public_rounded,
+                      size: 12,
+                      color: AppColors.primary,
+                    ),
                   ),
                   const SizedBox(width: 8),
                   Expanded(
@@ -301,7 +357,11 @@ class _ZynthSearchResultsViewState extends State<ZynthSearchResultsView> {
                       ),
                     ),
                   ),
-                  const Icon(Icons.arrow_outward_rounded, size: 14, color: AppColors.textMuted),
+                  const Icon(
+                    Icons.arrow_outward_rounded,
+                    size: 14,
+                    color: AppColors.textMuted,
+                  ),
                 ],
               ),
 
@@ -339,14 +399,20 @@ class _ZynthSearchResultsViewState extends State<ZynthSearchResultsView> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: AppColors.surfaceElevated,
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
                       'Score: ${item.score.toStringAsFixed(2)}',
-                      style: const TextStyle(color: AppColors.textMuted, fontSize: 10),
+                      style: const TextStyle(
+                        color: AppColors.textMuted,
+                        fontSize: 10,
+                      ),
                     ),
                   ),
                 ),

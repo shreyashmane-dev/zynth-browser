@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../core/constants/app_constants.dart';
 import '../../core/theme/app_colors.dart';
 import '../../models/search_engine.dart';
@@ -10,10 +11,7 @@ import '../search/search_provider_factory.dart';
 class SettingsSheet extends StatefulWidget {
   final BrowserController controller;
 
-  const SettingsSheet({
-    super.key,
-    required this.controller,
-  });
+  const SettingsSheet({super.key, required this.controller});
 
   @override
   State<SettingsSheet> createState() => _SettingsSheetState();
@@ -35,7 +33,9 @@ class _SettingsSheetState extends State<SettingsSheet> {
   void initState() {
     super.initState();
     _selectedEngine = widget.controller.activeEngine;
-    _backendUrlController = TextEditingController(text: _prefs.getOmBackendUrl());
+    _backendUrlController = TextEditingController(
+      text: _prefs.getOmBackendUrl(),
+    );
     _adBlockEnabled = _prefs.isAdBlockEnabled();
     _jsEnabled = _prefs.isJavaScriptEnabled();
   }
@@ -99,7 +99,11 @@ class _SettingsSheetState extends State<SettingsSheet> {
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             child: Row(
               children: [
-                Icon(Icons.settings_outlined, color: AppColors.primary, size: 22),
+                Icon(
+                  Icons.settings_outlined,
+                  color: AppColors.primary,
+                  size: 22,
+                ),
                 const SizedBox(width: 10),
                 Text(
                   'Zynth Settings',
@@ -140,11 +144,18 @@ class _SettingsSheetState extends State<SettingsSheet> {
                         activeColor: AppColors.primary,
                         title: const Text(
                           'Zynth Search (Primary)',
-                          style: TextStyle(color: AppColors.textPrimary, fontSize: 14, fontWeight: FontWeight.w600),
+                          style: TextStyle(
+                            color: AppColors.textPrimary,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         subtitle: const Text(
                           'Powered by local OM Search Engine',
-                          style: TextStyle(color: AppColors.textSecondary, fontSize: 12),
+                          style: TextStyle(
+                            color: AppColors.textSecondary,
+                            fontSize: 12,
+                          ),
                         ),
                         onChanged: (val) {
                           if (val != null) {
@@ -160,11 +171,18 @@ class _SettingsSheetState extends State<SettingsSheet> {
                         activeColor: AppColors.secondary,
                         title: const Text(
                           'Google (Secondary)',
-                          style: TextStyle(color: AppColors.textPrimary, fontSize: 14, fontWeight: FontWeight.w600),
+                          style: TextStyle(
+                            color: AppColors.textPrimary,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         subtitle: const Text(
                           'Standard web search fallback',
-                          style: TextStyle(color: AppColors.textSecondary, fontSize: 12),
+                          style: TextStyle(
+                            color: AppColors.textSecondary,
+                            fontSize: 12,
+                          ),
                         ),
                         onChanged: (val) {
                           if (val != null) {
@@ -195,7 +213,11 @@ class _SettingsSheetState extends State<SettingsSheet> {
                     children: [
                       const Text(
                         'FastAPI Endpoint URL',
-                        style: TextStyle(color: AppColors.textPrimary, fontSize: 13, fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                          color: AppColors.textPrimary,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                       const SizedBox(height: 8),
                       Row(
@@ -203,11 +225,17 @@ class _SettingsSheetState extends State<SettingsSheet> {
                           Expanded(
                             child: TextField(
                               controller: _backendUrlController,
-                              style: const TextStyle(color: AppColors.textPrimary, fontSize: 13),
+                              style: const TextStyle(
+                                color: AppColors.textPrimary,
+                                fontSize: 13,
+                              ),
                               decoration: const InputDecoration(
                                 isDense: true,
                                 hintText: 'https://omsearch.onrender.com',
-                                contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                                contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 10,
+                                ),
                               ),
                               onChanged: (val) {
                                 _prefs.setOmBackendUrl(val.trim());
@@ -219,17 +247,30 @@ class _SettingsSheetState extends State<SettingsSheet> {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.primary,
                               foregroundColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 14,
+                                vertical: 12,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                             ),
-                            onPressed: _isTestingBackend ? null : _testOmBackend,
+                            onPressed: _isTestingBackend
+                                ? null
+                                : _testOmBackend,
                             child: _isTestingBackend
                                 ? const SizedBox(
                                     width: 16,
                                     height: 16,
-                                    child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      color: Colors.white,
+                                    ),
                                   )
-                                : const Text('Test', style: TextStyle(fontSize: 12)),
+                                : const Text(
+                                    'Test',
+                                    style: TextStyle(fontSize: 12),
+                                  ),
                           ),
                         ],
                       ),
@@ -299,11 +340,18 @@ class _SettingsSheetState extends State<SettingsSheet> {
                         activeColor: AppColors.primary,
                         title: const Text(
                           'Tracker & Ad Guarding',
-                          style: TextStyle(color: AppColors.textPrimary, fontSize: 14, fontWeight: FontWeight.w600),
+                          style: TextStyle(
+                            color: AppColors.textPrimary,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         subtitle: const Text(
                           'Drops known telemetry and tracker domains at network loop',
-                          style: TextStyle(color: AppColors.textSecondary, fontSize: 12),
+                          style: TextStyle(
+                            color: AppColors.textSecondary,
+                            fontSize: 12,
+                          ),
                         ),
                         onChanged: (val) {
                           setState(() => _adBlockEnabled = val);
@@ -316,11 +364,18 @@ class _SettingsSheetState extends State<SettingsSheet> {
                         activeColor: AppColors.primary,
                         title: const Text(
                           'Enable JavaScript',
-                          style: TextStyle(color: AppColors.textPrimary, fontSize: 14, fontWeight: FontWeight.w600),
+                          style: TextStyle(
+                            color: AppColors.textPrimary,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         subtitle: const Text(
                           'Required for modern interactive web applications',
-                          style: TextStyle(color: AppColors.textSecondary, fontSize: 12),
+                          style: TextStyle(
+                            color: AppColors.textSecondary,
+                            fontSize: 12,
+                          ),
                         ),
                         onChanged: (val) {
                           setState(() => _jsEnabled = val);
@@ -349,14 +404,22 @@ class _SettingsSheetState extends State<SettingsSheet> {
                     children: [
                       Text(
                         '${AppConstants.appName} v${AppConstants.appVersion}',
-                        style: TextStyle(color: AppColors.textPrimary, fontSize: 14, fontWeight: FontWeight.w600),
+                        style: TextStyle(
+                          color: AppColors.textPrimary,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                       SizedBox(height: 4),
                       Text(
                         'Target Platform: Android System WebView (Chromium core)\n'
                         'Architecture: Flutter + Dart with extensible search providers and local SQLite storage.\n'
                         'Future Desktop Target: Linux Chromium Embedded Framework (CEF).',
-                        style: TextStyle(color: AppColors.textMuted, fontSize: 12, height: 1.4),
+                        style: TextStyle(
+                          color: AppColors.textMuted,
+                          fontSize: 12,
+                          height: 1.4,
+                        ),
                       ),
                     ],
                   ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../core/theme/app_colors.dart';
 import '../../../../models/search_engine.dart';
 import '../../browser_controller.dart';
@@ -8,10 +9,7 @@ import 'provider_selector_sheet.dart';
 class BrowserAppBar extends StatefulWidget implements PreferredSizeWidget {
   final BrowserController controller;
 
-  const BrowserAppBar({
-    super.key,
-    required this.controller,
-  });
+  const BrowserAppBar({super.key, required this.controller});
 
   @override
   Size get preferredSize => const Size.fromHeight(60);
@@ -107,7 +105,9 @@ class _BrowserAppBarState extends State<BrowserAppBar> {
                 color: AppColors.addressBarBg,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: _isEditing ? AppColors.primary : AppColors.addressBarBorder,
+                  color: _isEditing
+                      ? AppColors.primary
+                      : AppColors.addressBarBorder,
                   width: _isEditing ? 1.5 : 1.0,
                 ),
               ),
@@ -118,7 +118,10 @@ class _BrowserAppBarState extends State<BrowserAppBar> {
                     onTap: _openProviderSheet,
                     behavior: HitTestBehavior.opaque,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 6,
+                      ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -145,9 +148,13 @@ class _BrowserAppBarState extends State<BrowserAppBar> {
                   // Security / SSL lock indicator (visible when browsing a site)
                   if (!isHome && !_isEditing) ...[
                     Icon(
-                      isSecure ? Icons.lock_outline_rounded : Icons.lock_open_rounded,
+                      isSecure
+                          ? Icons.lock_outline_rounded
+                          : Icons.lock_open_rounded,
                       size: 14,
-                      color: isSecure ? AppColors.secureGreen : AppColors.insecureGrey,
+                      color: isSecure
+                          ? AppColors.secureGreen
+                          : AppColors.insecureGrey,
                     ),
                     const SizedBox(width: 6),
                   ],
@@ -168,7 +175,9 @@ class _BrowserAppBarState extends State<BrowserAppBar> {
                       ),
                       decoration: InputDecoration(
                         isDense: true,
-                        contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: 10,
+                        ),
                         hintText: isHome
                             ? 'Search with ${engine.displayName} or type URL'
                             : 'Search or enter address',
@@ -190,7 +199,10 @@ class _BrowserAppBarState extends State<BrowserAppBar> {
                       icon: const Icon(Icons.close_rounded, size: 16),
                       color: AppColors.textSecondary,
                       padding: EdgeInsets.zero,
-                      constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                      constraints: const BoxConstraints(
+                        minWidth: 32,
+                        minHeight: 32,
+                      ),
                       onPressed: () {
                         _textController.clear();
                       },
@@ -203,7 +215,10 @@ class _BrowserAppBarState extends State<BrowserAppBar> {
                       ),
                       color: AppColors.textSecondary,
                       padding: EdgeInsets.zero,
-                      constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
+                      constraints: const BoxConstraints(
+                        minWidth: 36,
+                        minHeight: 36,
+                      ),
                       onPressed: () {
                         if (isLoading) {
                           widget.controller.stopLoading();

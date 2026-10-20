@@ -24,7 +24,10 @@ void main() {
       expect(reconstructed.id, equals(1));
       expect(reconstructed.title, equals('Zynth Home'));
       expect(reconstructed.url, equals('https://zynth.dev'));
-      expect(reconstructed.createdAt.millisecondsSinceEpoch, equals(now.millisecondsSinceEpoch));
+      expect(
+        reconstructed.createdAt.millisecondsSinceEpoch,
+        equals(now.millisecondsSinceEpoch),
+      );
       expect(reconstructed.faviconUrl, equals('https://zynth.dev/favicon.ico'));
     });
 
@@ -43,9 +46,21 @@ void main() {
     });
 
     test('Bookmark equality is based on URL', () {
-      final b1 = Bookmark(title: 'A', url: 'https://example.com', createdAt: DateTime.now());
-      final b2 = Bookmark(title: 'B', url: 'https://example.com', createdAt: DateTime.now());
-      final b3 = Bookmark(title: 'A', url: 'https://different.com', createdAt: DateTime.now());
+      final b1 = Bookmark(
+        title: 'A',
+        url: 'https://example.com',
+        createdAt: DateTime.now(),
+      );
+      final b2 = Bookmark(
+        title: 'B',
+        url: 'https://example.com',
+        createdAt: DateTime.now(),
+      );
+      final b3 = Bookmark(
+        title: 'A',
+        url: 'https://different.com',
+        createdAt: DateTime.now(),
+      );
 
       expect(b1, equals(b2));
       expect(b1, isNot(equals(b3)));

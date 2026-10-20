@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../core/theme/app_colors.dart';
 import '../../browser_controller.dart';
 import '../../../bookmarks/bookmarks_sheet.dart';
@@ -8,10 +9,7 @@ import '../../../settings/settings_sheet.dart';
 class BrowserBottomBar extends StatelessWidget {
   final BrowserController controller;
 
-  const BrowserBottomBar({
-    super.key,
-    required this.controller,
-  });
+  const BrowserBottomBar({super.key, required this.controller});
 
   void _openBookmarks(BuildContext context) {
     showModalBottomSheet(
@@ -31,9 +29,7 @@ class BrowserBottomBar extends StatelessWidget {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (_) => SettingsSheet(
-        controller: controller,
-      ),
+      builder: (_) => SettingsSheet(controller: controller),
     );
   }
 
@@ -60,7 +56,9 @@ class BrowserBottomBar extends StatelessWidget {
             // Back Button
             IconButton(
               icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 18),
-              color: canBack ? AppColors.textPrimary : AppColors.textMuted.withOpacity(0.5),
+              color: canBack
+                  ? AppColors.textPrimary
+                  : AppColors.textMuted.withOpacity(0.5),
               onPressed: canBack ? () => controller.goBack() : null,
               tooltip: 'Back',
             ),
@@ -68,7 +66,9 @@ class BrowserBottomBar extends StatelessWidget {
             // Forward Button
             IconButton(
               icon: const Icon(Icons.arrow_forward_ios_rounded, size: 18),
-              color: canForward ? AppColors.textPrimary : AppColors.textMuted.withOpacity(0.5),
+              color: canForward
+                  ? AppColors.textPrimary
+                  : AppColors.textMuted.withOpacity(0.5),
               onPressed: canForward ? () => controller.goForward() : null,
               tooltip: 'Forward',
             ),
@@ -87,11 +87,19 @@ class BrowserBottomBar extends StatelessWidget {
             // Bookmark Toggle Button
             IconButton(
               icon: Icon(
-                isBookmarked ? Icons.bookmark_rounded : Icons.bookmark_border_rounded,
+                isBookmarked
+                    ? Icons.bookmark_rounded
+                    : Icons.bookmark_border_rounded,
                 size: 20,
               ),
-              color: isBookmarked ? AppColors.warning : (isHome ? AppColors.textMuted.withOpacity(0.4) : AppColors.textPrimary),
-              onPressed: isHome ? () => _openBookmarks(context) : () => controller.toggleBookmark(),
+              color: isBookmarked
+                  ? AppColors.warning
+                  : (isHome
+                        ? AppColors.textMuted.withOpacity(0.4)
+                        : AppColors.textPrimary),
+              onPressed: isHome
+                  ? () => _openBookmarks(context)
+                  : () => controller.toggleBookmark(),
               tooltip: isBookmarked ? 'Bookmarked' : 'Add Bookmark',
             ),
 
@@ -133,7 +141,10 @@ class BrowserBottomBar extends StatelessWidget {
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.bookmarks_rounded, color: AppColors.primary),
+              leading: const Icon(
+                Icons.bookmarks_rounded,
+                color: AppColors.primary,
+              ),
               title: const TextStyleText('Bookmarks', isTitle: true),
               subtitle: const TextStyleText('View and manage saved websites'),
               onTap: () {
@@ -142,16 +153,24 @@ class BrowserBottomBar extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.shield_outlined, color: AppColors.secondary),
+              leading: const Icon(
+                Icons.shield_outlined,
+                color: AppColors.secondary,
+              ),
               title: const TextStyleText('Shield Protection', isTitle: true),
               subtitle: TextStyleText(
                 'Blocked ${controller.blockedTrackersCount} tracker requests',
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.settings_outlined, color: AppColors.textSecondary),
+              leading: const Icon(
+                Icons.settings_outlined,
+                color: AppColors.textSecondary,
+              ),
               title: const TextStyleText('Settings', isTitle: true),
-              subtitle: const TextStyleText('Search provider, clear data, and preferences'),
+              subtitle: const TextStyleText(
+                'Search provider, clear data, and preferences',
+              ),
               onTap: () {
                 Navigator.pop(ctx);
                 _openSettings(context);

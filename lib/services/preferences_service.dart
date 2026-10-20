@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../core/constants/app_constants.dart';
 import '../models/search_engine.dart';
 
@@ -28,7 +29,8 @@ class PreferencesService {
 
   /// Get the active search engine type. Default is Zynth Search.
   SearchEngineType getSelectedEngine() {
-    final engineId = _prefs?.getString(AppConstants.prefSelectedEngine) ?? _memoryEngine;
+    final engineId =
+        _prefs?.getString(AppConstants.prefSelectedEngine) ?? _memoryEngine;
     return SearchEngineTypeExtension.fromId(engineId);
   }
 
@@ -40,7 +42,8 @@ class PreferencesService {
 
   /// Get the configured OM Search backend URL.
   String getOmBackendUrl() {
-    return _prefs?.getString(AppConstants.prefOmBackendUrl) ?? _memoryBackendUrl;
+    return _prefs?.getString(AppConstants.prefOmBackendUrl) ??
+        _memoryBackendUrl;
   }
 
   /// Persist the OM Search backend URL.

@@ -1,10 +1,7 @@
 import '../core/constants/app_constants.dart';
 
 /// Available search engine types in Zynth Browser.
-enum SearchEngineType {
-  zynth,
-  google,
-}
+enum SearchEngineType { zynth, google }
 
 extension SearchEngineTypeExtension on SearchEngineType {
   String get id {

@@ -55,9 +55,7 @@ class Bookmark {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Bookmark &&
-          runtimeType == other.runtimeType &&
-          url == other.url;
+      other is Bookmark && runtimeType == other.runtimeType && url == other.url;
 
   @override
   int get hashCode => url.hashCode;

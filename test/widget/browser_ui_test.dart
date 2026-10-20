@@ -8,15 +8,15 @@ import 'package:zynth_browser/features/browser/presentation/widgets/browser_home
 
 void main() {
   group('Browser UI Widget Tests', () {
-    testWidgets('BrowserHomeView displays branding and search elements', (WidgetTester tester) async {
+    testWidgets('BrowserHomeView displays branding and search elements', (
+      WidgetTester tester,
+    ) async {
       final controller = BrowserController();
 
       await tester.pumpWidget(
         MaterialApp(
           theme: AppTheme.darkTheme,
-          home: Scaffold(
-            body: BrowserHomeView(controller: controller),
-          ),
+          home: Scaffold(body: BrowserHomeView(controller: controller)),
         ),
       );
 
@@ -31,15 +31,15 @@ void main() {
       expect(find.text('GitHub'), findsOneWidget);
     });
 
-    testWidgets('BrowserAppBar renders address field and provider selector', (WidgetTester tester) async {
+    testWidgets('BrowserAppBar renders address field and provider selector', (
+      WidgetTester tester,
+    ) async {
       final controller = BrowserController();
 
       await tester.pumpWidget(
         MaterialApp(
           theme: AppTheme.darkTheme,
-          home: Scaffold(
-            appBar: BrowserAppBar(controller: controller),
-          ),
+          home: Scaffold(appBar: BrowserAppBar(controller: controller)),
         ),
       );
 
@@ -50,7 +50,9 @@ void main() {
       expect(find.byIcon(Icons.arrow_drop_down_rounded), findsOneWidget);
     });
 
-    testWidgets('BrowserBottomBar renders navigation controls', (WidgetTester tester) async {
+    testWidgets('BrowserBottomBar renders navigation controls', (
+      WidgetTester tester,
+    ) async {
       final controller = BrowserController();
 
       await tester.pumpWidget(

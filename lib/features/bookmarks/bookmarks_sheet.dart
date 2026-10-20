@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../core/theme/app_colors.dart';
 import '../../models/bookmark.dart';
 import '../../services/database_service.dart';
@@ -7,10 +8,7 @@ import '../../services/database_service.dart';
 class BookmarksSheet extends StatefulWidget {
   final ValueChanged<String> onSelectBookmark;
 
-  const BookmarksSheet({
-    super.key,
-    required this.onSelectBookmark,
-  });
+  const BookmarksSheet({super.key, required this.onSelectBookmark});
 
   @override
   State<BookmarksSheet> createState() => _BookmarksSheetState();
@@ -107,7 +105,10 @@ class _BookmarksSheetState extends State<BookmarksSheet> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel', style: TextStyle(color: AppColors.textSecondary)),
+            child: const Text(
+              'Cancel',
+              style: TextStyle(color: AppColors.textSecondary),
+            ),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -166,7 +167,11 @@ class _BookmarksSheetState extends State<BookmarksSheet> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               children: [
-                const Icon(Icons.bookmarks_rounded, color: AppColors.primary, size: 22),
+                const Icon(
+                  Icons.bookmarks_rounded,
+                  color: AppColors.primary,
+                  size: 22,
+                ),
                 const SizedBox(width: 10),
                 const Text(
                   'Bookmarks',
@@ -191,11 +196,21 @@ class _BookmarksSheetState extends State<BookmarksSheet> {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: TextField(
               controller: _searchController,
-              style: const TextStyle(color: AppColors.textPrimary, fontSize: 13),
+              style: const TextStyle(
+                color: AppColors.textPrimary,
+                fontSize: 13,
+              ),
               decoration: InputDecoration(
                 hintText: 'Search bookmarks...',
-                hintStyle: const TextStyle(color: AppColors.textMuted, fontSize: 13),
-                prefixIcon: const Icon(Icons.search_rounded, size: 18, color: AppColors.textMuted),
+                hintStyle: const TextStyle(
+                  color: AppColors.textMuted,
+                  fontSize: 13,
+                ),
+                prefixIcon: const Icon(
+                  Icons.search_rounded,
+                  size: 18,
+                  color: AppColors.textMuted,
+                ),
                 contentPadding: const EdgeInsets.symmetric(vertical: 8),
                 isDense: true,
               ),
@@ -211,73 +226,82 @@ class _BookmarksSheetState extends State<BookmarksSheet> {
                     child: CircularProgressIndicator(color: AppColors.primary),
                   )
                 : _filteredBookmarks.isEmpty
-                    ? Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.bookmark_border_rounded,
-                                size: 48, color: AppColors.textMuted.withOpacity(0.4)),
-                            const SizedBox(height: 12),
-                            const Text(
-                              'No bookmarks saved yet',
-                              style: TextStyle(color: AppColors.textMuted, fontSize: 14),
-                            ),
-                          ],
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.bookmark_border_rounded,
+                          size: 48,
+                          color: AppColors.textMuted.withOpacity(0.4),
                         ),
-                      )
-                    : ListView.separated(
-                        physics: const BouncingScrollPhysics(),
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        itemCount: _filteredBookmarks.length,
-                        separatorBuilder: (_, __) =>
-                            const Divider(color: AppColors.divider, height: 1),
-                        itemBuilder: (context, index) {
-                          final bookmark = _filteredBookmarks[index];
-                          return ListTile(
-                            leading: Container(
-                              width: 36,
-                              height: 36,
-                              decoration: BoxDecoration(
-                                color: AppColors.surfaceElevated,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: const Icon(
-                                Icons.public_rounded,
-                                color: AppColors.textSecondary,
-                                size: 18,
-                              ),
-                            ),
-                            title: Text(
-                              bookmark.title,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                color: AppColors.textPrimary,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            subtitle: Text(
-                              bookmark.url,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                color: AppColors.textMuted,
-                                fontSize: 12,
-                              ),
-                            ),
-                            trailing: IconButton(
-                              icon: const Icon(Icons.delete_outline_rounded, size: 18),
-                              color: AppColors.textMuted,
-                              onPressed: () => _deleteBookmark(bookmark),
-                            ),
-                            onTap: () {
-                              Navigator.pop(context);
-                              widget.onSelectBookmark(bookmark.url);
-                            },
-                          );
+                        const SizedBox(height: 12),
+                        const Text(
+                          'No bookmarks saved yet',
+                          style: TextStyle(
+                            color: AppColors.textMuted,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : ListView.separated(
+                    physics: const BouncingScrollPhysics(),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    itemCount: _filteredBookmarks.length,
+                    separatorBuilder: (_, __) =>
+                        const Divider(color: AppColors.divider, height: 1),
+                    itemBuilder: (context, index) {
+                      final bookmark = _filteredBookmarks[index];
+                      return ListTile(
+                        leading: Container(
+                          width: 36,
+                          height: 36,
+                          decoration: BoxDecoration(
+                            color: AppColors.surfaceElevated,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: const Icon(
+                            Icons.public_rounded,
+                            color: AppColors.textSecondary,
+                            size: 18,
+                          ),
+                        ),
+                        title: Text(
+                          bookmark.title,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: AppColors.textPrimary,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        subtitle: Text(
+                          bookmark.url,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: AppColors.textMuted,
+                            fontSize: 12,
+                          ),
+                        ),
+                        trailing: IconButton(
+                          icon: const Icon(
+                            Icons.delete_outline_rounded,
+                            size: 18,
+                          ),
+                          color: AppColors.textMuted,
+                          onPressed: () => _deleteBookmark(bookmark),
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                          widget.onSelectBookmark(bookmark.url);
                         },
-                      ),
+                      );
+                    },
+                  ),
           ),
         ],
       ),

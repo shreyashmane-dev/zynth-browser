@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../core/theme/app_colors.dart';
 import '../../../../models/search_engine.dart';
 
@@ -55,10 +56,7 @@ class ProviderSelectorSheet extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
             child: Text(
               'Default engine used when entering search terms or phrases.',
-              style: TextStyle(
-                color: AppColors.textSecondary,
-                fontSize: 13,
-              ),
+              style: TextStyle(color: AppColors.textSecondary, fontSize: 13),
             ),
           ),
           const SizedBox(height: 16),
@@ -68,7 +66,8 @@ class ProviderSelectorSheet extends StatelessWidget {
             context: context,
             type: SearchEngineType.zynth,
             title: 'Zynth Search',
-            subtitle: 'Powered by OM Search Engine • Independent open-web index',
+            subtitle:
+                'Powered by OM Search Engine • Independent open-web index',
             shortcut: '@zynth',
             icon: Icons.bolt_rounded,
             accentColor: AppColors.primary,
@@ -149,7 +148,10 @@ class ProviderSelectorSheet extends StatelessWidget {
                       ),
                       const SizedBox(width: 8),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: AppColors.surfaceElevated,
                           borderRadius: BorderRadius.circular(6),

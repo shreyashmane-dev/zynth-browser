@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
+
 import '../../core/constants/app_constants.dart';
 import '../../models/om_search_result.dart';
 import '../../models/search_engine.dart';
@@ -42,7 +44,11 @@ class ZynthSearchProvider implements SearchProvider {
 
   /// Execute a structured search query against OM Search FastAPI.
   /// Returns typed [OmSearchResponse].
-  Future<OmSearchResponse> search(String query, {int page = 1, int size = 10}) async {
+  Future<OmSearchResponse> search(
+    String query, {
+    int page = 1,
+    int size = 10,
+  }) async {
     final cleanQuery = query.trim();
     if (cleanQuery.isEmpty) {
       throw ArgumentError('Query string cannot be empty.');
@@ -61,7 +67,9 @@ class ZynthSearchProvider implements SearchProvider {
       final response = await http.get(uri).timeout(const Duration(seconds: 6));
 
       if (response.statusCode == 200) {
-        final Map<String, dynamic> data = jsonDecode(utf8.decode(response.bodyBytes));
+        final Map<String, dynamic> data = jsonDecode(
+          utf8.decode(response.bodyBytes),
+        );
         return OmSearchResponse.fromJson(data);
       } else {
         throw Exception(
@@ -69,7 +77,9 @@ class ZynthSearchProvider implements SearchProvider {
         );
       }
     } on TimeoutException {
-      throw TimeoutException('Connection to Zynth Search backend timed out after 6s.');
+      throw TimeoutException(
+        'Connection to Zynth Search backend timed out after 6s.',
+      );
     } catch (e) {
       rethrow;
     }
@@ -81,18 +91,17 @@ class ZynthSearchProvider implements SearchProvider {
     if (clean.isEmpty) return const [];
 
     final cleanBase = baseUrl.replaceAll(RegExp(r'/+$'), '');
-    final uri = Uri.parse('$cleanBase${AppConstants.omSuggestionsApiPath}').replace(
-      queryParameters: {
-        'q': clean,
-        'limit': '6',
-      },
-    );
+    final uri = Uri.parse('$cleanBase${AppConstants.omSuggestionsApiPath}')
+        .replace(queryParameters: {'q': clean, 'limit': '6'});
 
     try {
       final response = await http.get(uri).timeout(const Duration(seconds: 3));
       if (response.statusCode == 200) {
-        final Map<String, dynamic> data = jsonDecode(utf8.decode(response.bodyBytes));
-        final List<dynamic>? suggestions = data['suggestions'] as List<dynamic>?;
+        final Map<String, dynamic> data = jsonDecode(
+          utf8.decode(response.bodyBytes),
+        );
+        final List<dynamic>? suggestions =
+            data['suggestions'] as List<dynamic>?;
         if (suggestions != null) {
           return suggestions.map((e) => e.toString()).toList();
         }

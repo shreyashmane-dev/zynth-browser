@@ -1,6 +1,8 @@
 import 'dart:async';
+
 import 'package:path/path.dart' as p;
 import 'package:sqflite/sqflite.dart';
+
 import '../core/constants/app_constants.dart';
 import '../models/bookmark.dart';
 
@@ -37,15 +39,12 @@ class DatabaseService {
             )
           ''');
           // Insert initial default bookmark for OM Search
-          await db.insert(
-            AppConstants.tableBookmarks,
-            {
-              'title': 'Zynth Search (OM Search)',
-              'url': 'https://omsearch.onrender.com',
-              'createdAt': DateTime.now().millisecondsSinceEpoch,
-              'faviconUrl': null,
-            },
-          );
+          await db.insert(AppConstants.tableBookmarks, {
+            'title': 'Zynth Search (OM Search)',
+            'url': 'https://omsearch.onrender.com',
+            'createdAt': DateTime.now().millisecondsSinceEpoch,
+            'faviconUrl': null,
+          });
         },
       );
     } catch (e) {

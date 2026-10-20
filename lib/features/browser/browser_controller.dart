@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+
 import '../../core/constants/app_constants.dart';
 import '../../core/utils/url_parser.dart';
 import '../../models/bookmark.dart';
@@ -208,7 +209,8 @@ class BrowserController extends ChangeNotifier {
 
     if (parseResult.isBlocked) {
       _hasError = true;
-      _errorMessage = parseResult.errorMessage ?? 'URL scheme is blocked for security.';
+      _errorMessage =
+          parseResult.errorMessage ?? 'URL scheme is blocked for security.';
       _isHomeView = false;
       _isSearchResultsView = false;
       notifyListeners();
@@ -217,12 +219,16 @@ class BrowserController extends ChangeNotifier {
 
     if (parseResult.isSearchQuery) {
       final query = parseResult.searchQuery ?? '';
-      final isGoogle = parseResult.explicitProvider == AppConstants.engineGoogleId ||
-          (parseResult.explicitProvider == null && _activeEngine == SearchEngineType.google);
+      final isGoogle =
+          parseResult.explicitProvider == AppConstants.engineGoogleId ||
+          (parseResult.explicitProvider == null &&
+              _activeEngine == SearchEngineType.google);
 
       if (isGoogle) {
         _isSearchResultsView = false;
-        final destinationUrl = _searchService.resolveDestinationUrl(parseResult);
+        final destinationUrl = _searchService.resolveDestinationUrl(
+          parseResult,
+        );
         await navigateTo(destinationUrl);
       } else {
         // Zynth Search powered by OM Search on Render

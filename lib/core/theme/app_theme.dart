@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'app_colors.dart';
 
 /// Zynth Browser Theme definitions.
@@ -53,7 +54,10 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: AppColors.addressBarBg,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 12,
+        ),
         hintStyle: const TextStyle(
           color: AppColors.textMuted,
           fontSize: 14,
@@ -84,10 +88,7 @@ class AppTheme {
           side: const BorderSide(color: AppColors.border, width: 1),
         ),
       ),
-      iconTheme: const IconThemeData(
-        color: AppColors.textSecondary,
-        size: 20,
-      ),
+      iconTheme: const IconThemeData(color: AppColors.textSecondary, size: 20),
       textTheme: const TextTheme(
         headlineLarge: TextStyle(
           color: AppColors.textPrimary,

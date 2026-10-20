@@ -1,5 +1,7 @@
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
+
 import '../../core/constants/app_constants.dart';
 import '../../models/search_engine.dart';
 import 'search_provider.dart';

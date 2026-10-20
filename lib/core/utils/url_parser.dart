@@ -66,15 +66,81 @@ class UrlParser {
 
   // Common Top Level Domains for domain heuristic recognition
   static const Set<String> _knownTlds = {
-    'com', 'org', 'net', 'edu', 'gov', 'mil', 'int',
-    'io', 'ai', 'dev', 'app', 'co', 'uk', 'ca', 'de', 'fr', 'jp',
-    'cn', 'ru', 'in', 'br', 'it', 'es', 'nl', 'se', 'no', 'ch',
-    'au', 'nz', 'me', 'cc', 'tv', 'tech', 'info', 'biz', 'online',
-    'site', 'store', 'blog', 'news', 'xyz', 'live', 'club', 'space',
-    'top', 'pro', 'agency', 'digital', 'cloud', 'global', 'design',
-    'media', 'link', 'click', 'press', 'zone', 'vip', 'group', 'today',
-    'world', 'wiki', 'center', 'life', 'art', 'pub', 'law', 'crypto',
-    'us', 'eu', 'asia', 'mobi', 'name', 'travel', 'jobs', 'tel',
+    'com',
+    'org',
+    'net',
+    'edu',
+    'gov',
+    'mil',
+    'int',
+    'io',
+    'ai',
+    'dev',
+    'app',
+    'co',
+    'uk',
+    'ca',
+    'de',
+    'fr',
+    'jp',
+    'cn',
+    'ru',
+    'in',
+    'br',
+    'it',
+    'es',
+    'nl',
+    'se',
+    'no',
+    'ch',
+    'au',
+    'nz',
+    'me',
+    'cc',
+    'tv',
+    'tech',
+    'info',
+    'biz',
+    'online',
+    'site',
+    'store',
+    'blog',
+    'news',
+    'xyz',
+    'live',
+    'club',
+    'space',
+    'top',
+    'pro',
+    'agency',
+    'digital',
+    'cloud',
+    'global',
+    'design',
+    'media',
+    'link',
+    'click',
+    'press',
+    'zone',
+    'vip',
+    'group',
+    'today',
+    'world',
+    'wiki',
+    'center',
+    'life',
+    'art',
+    'pub',
+    'law',
+    'crypto',
+    'us',
+    'eu',
+    'asia',
+    'mobi',
+    'name',
+    'travel',
+    'jobs',
+    'tel',
   };
 
   // IPv4 regex with optional port and path
@@ -87,10 +153,7 @@ class UrlParser {
     final trimmed = rawInput.trim();
 
     if (trimmed.isEmpty) {
-      return const UrlParseResult(
-        type: UrlType.empty,
-        rawInput: '',
-      );
+      return const UrlParseResult(type: UrlType.empty, rawInput: '');
     }
 
     // 1. Check for search provider shortcuts (@google, @zynth)
@@ -98,12 +161,14 @@ class UrlParser {
     String? explicitProvider;
 
     final lower = trimmed.toLowerCase();
-    if (lower.startsWith('${AppConstants.shortcutGoogle} ') || lower == AppConstants.shortcutGoogle) {
+    if (lower.startsWith('${AppConstants.shortcutGoogle} ') ||
+        lower == AppConstants.shortcutGoogle) {
       explicitProvider = AppConstants.engineGoogleId;
       inputWithoutShortcut = trimmed.length > AppConstants.shortcutGoogle.length
           ? trimmed.substring(AppConstants.shortcutGoogle.length).trim()
           : '';
-    } else if (lower.startsWith('${AppConstants.shortcutZynth} ') || lower == AppConstants.shortcutZynth) {
+    } else if (lower.startsWith('${AppConstants.shortcutZynth} ') ||
+        lower == AppConstants.shortcutZynth) {
       explicitProvider = AppConstants.engineZynthId;
       inputWithoutShortcut = trimmed.length > AppConstants.shortcutZynth.length
           ? trimmed.substring(AppConstants.shortcutZynth.length).trim()
@@ -120,7 +185,9 @@ class UrlParser {
       );
     }
 
-    final toEvaluate = explicitProvider != null ? inputWithoutShortcut : trimmed;
+    final toEvaluate = explicitProvider != null
+        ? inputWithoutShortcut
+        : trimmed;
 
     // 2. Check localhost (e.g. localhost, localhost:8000, localhost:3000/api)
     if (_isLocalhost(toEvaluate)) {
@@ -133,7 +200,8 @@ class UrlParser {
     }
 
     // 3. Check explicit scheme (e.g. https://, http://, about:, javascript:)
-    final schemeMatch = RegExp(r'^([a-zA-Z][a-zA-Z0-9+.-]*):').firstMatch(toEvaluate);
+    final schemeMatch = RegExp(r'^([a-zA-Z][a-zA-Z0-9+.-]*):')
+        .firstMatch(toEvaluate);
     if (schemeMatch != null) {
       final scheme = schemeMatch.group(1)!.toLowerCase();
       final afterColon = toEvaluate.substring(schemeMatch.end);
@@ -148,7 +216,8 @@ class UrlParser {
             type: UrlType.blocked,
             rawInput: trimmed,
             explicitProvider: explicitProvider,
-            errorMessage: 'Navigation to "$scheme:" scheme is blocked for security.',
+            errorMessage:
+                'Navigation to "$scheme:" scheme is blocked for security.',
           );
         }
 
@@ -200,7 +269,9 @@ class UrlParser {
 
     // 4. Domain vs Search Query Heuristic
     // A string with spaces is always a search query
-    if (toEvaluate.contains(' ') || toEvaluate.contains('\t') || toEvaluate.contains('\n')) {
+    if (toEvaluate.contains(' ') ||
+        toEvaluate.contains('\t') ||
+        toEvaluate.contains('\n')) {
       return UrlParseResult(
         type: UrlType.searchQuery,
         rawInput: trimmed,
@@ -259,8 +330,10 @@ class UrlParser {
   /// Does not classify every string with a period as a website!
   static bool _looksLikeDomain(String input) {
     // Cannot start or end with a dot, dash, or slash
-    if (input.startsWith('.') || input.endsWith('.') ||
-        input.startsWith('-') || input.endsWith('-') ||
+    if (input.startsWith('.') ||
+        input.endsWith('.') ||
+        input.startsWith('-') ||
+        input.endsWith('-') ||
         input.startsWith('/')) {
       return false;
     }

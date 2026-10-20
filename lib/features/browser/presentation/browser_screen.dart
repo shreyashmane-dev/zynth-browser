@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+
 import '../../../core/theme/app_colors.dart';
 import '../browser_controller.dart';
 import '../../search/presentation/zynth_search_results_view.dart';
@@ -42,7 +43,10 @@ class _BrowserScreenState extends State<BrowserScreen> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: _controller.isHomeView && !_controller.canGoBack && !_controller.isSearchResultsView,
+      canPop:
+          _controller.isHomeView &&
+          !_controller.canGoBack &&
+          !_controller.isSearchResultsView,
       onPopInvokedWithResult: (didPop, result) async {
         if (didPop) return;
 
@@ -61,18 +65,20 @@ class _BrowserScreenState extends State<BrowserScreen> {
             // Loading Progress Bar
             if (_controller.isLoading)
               LinearProgressIndicator(
-                value: _controller.loadingProgress > 0 ? _controller.loadingProgress : null,
+                value: _controller.loadingProgress > 0
+                    ? _controller.loadingProgress
+                    : null,
                 backgroundColor: Colors.transparent,
-                valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+                valueColor: const AlwaysStoppedAnimation<Color>(
+                  AppColors.primary,
+                ),
                 minHeight: 2.5,
               )
             else
               const SizedBox(height: 2.5),
 
             // Active Viewport
-            Expanded(
-              child: _buildViewport(),
-            ),
+            Expanded(child: _buildViewport()),
           ],
         ),
         bottomNavigationBar: BrowserBottomBar(controller: _controller),
