@@ -5,6 +5,7 @@ import 'core/constants/app_constants.dart';
 import 'core/theme/app_colors.dart';
 import 'core/theme/app_theme.dart';
 import 'features/browser/presentation/browser_screen.dart';
+import 'services/app_icon_service.dart';
 import 'services/database_service.dart';
 import 'services/preferences_service.dart';
 
@@ -27,6 +28,9 @@ void main() async {
 
   final dbService = DatabaseService();
   await dbService.init();
+
+  // Sync dynamic app launcher icon according to 7-Day Vision schedule
+  await AppIconService.syncDailyIcon();
 
   runApp(const ZynthBrowserApp());
 }

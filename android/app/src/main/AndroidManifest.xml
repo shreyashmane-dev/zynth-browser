@@ -26,11 +26,6 @@
               android:resource="@style/NormalTheme"
               />
             
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-
             <!-- Support opening URLs from other apps -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -40,6 +35,116 @@
                 <data android:scheme="https" />
             </intent-filter>
         </activity>
+
+        <!-- ========================================== -->
+        <!-- 7-Day Dynamic App Icon Activity Aliases    -->
+        <!-- One Browser • Seven Visions                -->
+        <!-- ========================================== -->
+
+        <!-- Day 1: Cosmic Core (Default Enabled) -->
+        <activity-alias
+            android:name=".MainActivityDay1"
+            android:enabled="true"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_day1"
+            android:roundIcon="@mipmap/ic_launcher_day1_round"
+            android:label="Zynth Browser"
+            android:targetActivity=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <!-- Day 2: Minimal Flow -->
+        <activity-alias
+            android:name=".MainActivityDay2"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_day2"
+            android:roundIcon="@mipmap/ic_launcher_day2_round"
+            android:label="Zynth Browser"
+            android:targetActivity=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <!-- Day 3: Dark Forge -->
+        <activity-alias
+            android:name=".MainActivityDay3"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_day3"
+            android:roundIcon="@mipmap/ic_launcher_day3_round"
+            android:label="Zynth Browser"
+            android:targetActivity=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <!-- Day 4: Nebula Wave -->
+        <activity-alias
+            android:name=".MainActivityDay4"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_day4"
+            android:roundIcon="@mipmap/ic_launcher_day4_round"
+            android:label="Zynth Browser"
+            android:targetActivity=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <!-- Day 5: Orbit Ring -->
+        <activity-alias
+            android:name=".MainActivityDay5"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_day5"
+            android:roundIcon="@mipmap/ic_launcher_day5_round"
+            android:label="Zynth Browser"
+            android:targetActivity=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <!-- Day 6: Horizon Peak -->
+        <activity-alias
+            android:name=".MainActivityDay6"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_day6"
+            android:roundIcon="@mipmap/ic_launcher_day6_round"
+            android:label="Zynth Browser"
+            android:targetActivity=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <!-- Day 7: Crystal Form -->
+        <activity-alias
+            android:name=".MainActivityDay7"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_day7"
+            android:roundIcon="@mipmap/ic_launcher_day7_round"
+            android:label="Zynth Browser"
+            android:targetActivity=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
 
         <meta-data
             android:name="flutterEmbedding"

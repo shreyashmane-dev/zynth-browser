@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Day 2: Minimal Flow Ribbon Ribbon Shadow -->
+    <path
+        android:fillColor="#1A6366F1"
+        android:pathData="M32,32 L78,32 L78,42 L48,68 L78,68 L78,78 L32,78 L32,68 L62,42 L32,42 Z"/>
+    <!-- Top Fluid Curve -->
+    <path
+        android:fillColor="#8B5CF6"
+        android:pathData="M30,30 C40,26 68,26 78,30 C80,34 78,40 74,42 L52,60 C46,65 42,65 38,62 Z"/>
+    <!-- Diagonal Dynamic Flow Ribbon -->
+    <path
+        android:fillColor="#6366F1"
+        android:pathData="M72,36 L40,68 C34,74 38,78 46,78 L78,78 C80,75 80,70 76,70 L52,70 L76,46 Z"/>
+    <!-- Bottom Cyan Accent Fold -->
+    <path
+        android:fillColor="#06B6D4"
+        android:pathData="M30,74 C34,68 46,68 54,74 C50,78 38,78 30,74 Z"/>
+</vector>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Day 6: Crystalline Horizon Z -->
+    <path
+        android:fillColor="#F472B6"
+        android:pathData="M30,28 L78,28 L78,36 L52,60 L78,60 L78,68 L30,68 L30,60 L56,36 L30,36 Z"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M34,29 L74,29 L74,32 L34,32 Z"/>
+    <!-- Alpine Mountain Ridge - Back Range -->
+    <path
+        android:fillColor="#1E1B4B"
+        android:pathData="M10,88 L34,58 L54,72 L76,52 L100,88 Z"/>
+    <!-- Alpine Mountain Ridge - Front Silhouettes -->
+    <path
+        android:fillColor="#0F172A"
+        android:pathData="M0,94 L24,66 L48,82 L70,62 L94,86 L108,76 L108,108 L0,108 Z"/>
+</vector>

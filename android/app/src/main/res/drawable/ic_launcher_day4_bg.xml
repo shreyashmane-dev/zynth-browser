@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Day 4: Nebula Wave Deep Cosmic Space Background -->
+    <path
+        android:fillColor="#0D0819"
+        android:pathData="M0,0h108v108h-108z"/>
+    <!-- Plasma Cloud Formations -->
+    <path
+        android:fillColor="#240C3B"
+        android:pathData="M30,20 C50,10 70,30 85,25 C100,20 100,50 85,65 C70,80 80,95 60,95 C40,95 20,80 20,60 C20,40 10,30 30,20 Z"/>
+    <path
+        android:fillColor="#3B0764"
+        android:pathData="M54,34 A24,24 0 1,1 54,82 A24,24 0 1,1 54,34 Z"/>
+</vector>

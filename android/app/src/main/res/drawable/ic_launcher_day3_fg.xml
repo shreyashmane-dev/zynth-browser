@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Day 3: Dark Forge Electric Cyan Aura -->
+    <path
+        android:fillColor="#3300F0FF"
+        android:pathData="M24,24 L84,24 L84,36 L52,66 L84,66 L84,84 L24,84 L24,72 L56,42 L24,42 Z"/>
+    <!-- Chiseled Metallic Facet Body -->
+    <path
+        android:fillColor="#2D3748"
+        android:pathData="M28,28 L80,28 L80,36 L50,66 L80,66 L80,80 L28,80 L28,72 L58,42 L28,42 Z"/>
+    <!-- Electric Forge Seam -->
+    <path
+        android:strokeColor="#00F0FF"
+        android:strokeWidth="2.5"
+        android:fillColor="#00000000"
+        android:pathData="M30,30 L78,30 L48,68 L78,78"/>
+    <!-- Bright Specular Highlight -->
+    <path
+        android:fillColor="#E0F2FE"
+        android:pathData="M32,29 L76,29 L76,32 L32,32 Z"/>
+</vector>

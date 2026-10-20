@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Day 4: Nebula Wave Ethereal Smoke Shadow -->
+    <path
+        android:fillColor="#33C026D3"
+        android:pathData="M24,24 L84,24 L84,40 L44,66 L84,66 L84,84 L24,84 L24,68 L64,42 L24,42 Z"/>
+    <!-- Flowing Plasma Vapor Body -->
+    <path
+        android:fillColor="#C026D3"
+        android:pathData="M28,28 C38,22 70,22 80,28 C85,34 75,44 65,48 L46,62 C38,68 40,78 52,78 L80,78 C82,82 78,84 72,84 L32,84 C22,84 22,70 34,62 L52,48 C62,42 60,34 48,34 L28,34 Z"/>
+    <!-- Electric Magenta Inner Core -->
+    <path
+        android:strokeColor="#F0ABFC"
+        android:strokeWidth="2"
+        android:fillColor="#00000000"
+        android:pathData="M32,32 C42,28 66,28 76,32 C70,40 58,46 48,54 C38,62 38,72 52,76 L76,76"/>
+    <!-- Specular Cosmic Dust -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M78,28 A2,2 0 1,1 78,32 A2,2 0 1,1 78,28 Z"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M32,80 A1.5,1.5 0 1,1 32,83 A1.5,1.5 0 1,1 32,80 Z"/>
+</vector>

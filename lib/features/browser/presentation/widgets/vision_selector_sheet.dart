@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../models/zynth_vision.dart';
+import '../../../../services/app_icon_service.dart';
 import '../../../../services/preferences_service.dart';
 import 'zynth_logo_widget.dart';
 
@@ -41,7 +42,17 @@ class _VisionSelectorSheetState extends State<VisionSelectorSheet> {
     });
     _prefs.setVisionAutoDaily(false);
     _prefs.setSelectedVisionId(vision.id);
+    AppIconService.setAppIcon(vision.dayOfWeek);
     widget.onVisionSelected(vision);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Launcher icon updated to ${vision.name} (Day ${vision.dayOfWeek})'),
+        duration: const Duration(seconds: 2),
+        backgroundColor: AppColors.surfaceVariant,
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
   }
 
   void _handleToggleAutoDaily(bool enabled) {
@@ -54,7 +65,18 @@ class _VisionSelectorSheetState extends State<VisionSelectorSheet> {
     _prefs.setVisionAutoDaily(enabled);
     _prefs.setSelectedVisionId(enabled ? 'auto' : widget.currentVision.id);
     if (enabled) {
-      widget.onVisionSelected(ZynthVision.forToday());
+      final todayVision = ZynthVision.forToday();
+      AppIconService.setAppIcon(todayVision.dayOfWeek);
+      widget.onVisionSelected(todayVision);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Auto-daily enabled: Launcher icon set to today\'s ${todayVision.name}'),
+          duration: const Duration(seconds: 2),
+          backgroundColor: AppColors.surfaceVariant,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
     }
   }
 
