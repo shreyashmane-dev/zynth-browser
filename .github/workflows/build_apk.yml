@@ -29,20 +29,6 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Ensure Android Gradle Wrapper & Platform
-        run: |
-          mkdir -p /tmp/zynth_bak
-          cp -r android/app/src /tmp/zynth_bak/src
-          cp android/app/build.gradle /tmp/zynth_bak/build.gradle
-          cp android/app/proguard-rules.pro /tmp/zynth_bak/proguard-rules.pro
-
-          flutter create . --platforms=android --org com.zynth
-
-          cp /tmp/zynth_bak/build.gradle android/app/build.gradle
-          cp /tmp/zynth_bak/proguard-rules.pro android/app/proguard-rules.pro
-          cp -r /tmp/zynth_bak/src/* android/app/src/
-          chmod +x android/gradlew
-
       - name: Generate Release Keystore
         run: |
           keytool -genkey -v -keystore android/app/upload-keystore.jks \
@@ -57,21 +43,21 @@ jobs:
         run: flutter test
 
       - name: Build Debug APK
-        run: flutter build apk --debug
+        run: |
+          flutter build apk --debug
+          mkdir -p apks
+          cp build/app/outputs/flutter-apk/app-debug.apk apks/
 
       - name: Build Release APK
-        run: flutter build apk --release
-
-      - name: Locate and Collect Generated APKs
         run: |
-          mkdir -p dist
-          find build/ -name "*.apk" -exec cp -v {} dist/ \;
-          ls -la dist/
+          flutter build apk --release
+          cp build/app/outputs/flutter-apk/app-release.apk apks/
+
+      - name: Verify APKs in directory
+        run: ls -la apks/
 
       - name: Upload All APK Artifacts
-        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: zynth-browser-apks
-          path: dist/*.apk
-          if-no-files-found: error
+          path: apks/
