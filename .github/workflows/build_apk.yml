@@ -44,13 +44,23 @@ jobs:
 
       - name: Build Debug APK
         run: |
-          flutter build apk --debug
+          flutter build apk --debug -v > build_debug.log 2>&1 || {
+            ERR=$(tail -n 25 build_debug.log | tr '\n' ' ')
+            echo "::error title=Debug Build Failure::$ERR"
+            tail -n 60 build_debug.log
+            exit 1
+          }
           mkdir -p apks
           cp build/app/outputs/flutter-apk/app-debug.apk apks/
 
       - name: Build Release APK
         run: |
-          flutter build apk --release
+          flutter build apk --release -v > build_release.log 2>&1 || {
+            ERR=$(tail -n 25 build_release.log | tr '\n' ' ')
+            echo "::error title=Release Build Failure::$ERR"
+            tail -n 60 build_release.log
+            exit 1
+          }
           cp build/app/outputs/flutter-apk/app-release.apk apks/
 
       - name: Verify APKs in directory
