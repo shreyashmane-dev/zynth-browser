@@ -29,20 +29,8 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Setup Gradle 8.4
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '8.4'
-
-      - name: Generate Gradle Wrapper
-        run: |
-          mkdir /tmp/wrapper && cd /tmp/wrapper
-          gradle wrapper --gradle-version 8.4
-          cd -
-          cp /tmp/wrapper/gradlew android/
-          cp -r /tmp/wrapper/gradle/wrapper/gradle-wrapper.jar android/gradle/wrapper/
-          chmod +x android/gradlew
-          ls -la android/gradlew android/gradle/wrapper/
+      - name: Make Gradle Wrapper Executable
+        run: chmod +x android/gradlew
 
       - name: Generate Release Keystore
         run: |
@@ -63,7 +51,7 @@ jobs:
       - name: Build Release APK
         run: flutter build apk --release
 
-      - name: Copy and Locate APKs
+      - name: Copy APKs to Dist
         run: |
           mkdir -p dist
           find build/ -name "*.apk" -exec cp -v {} dist/ \;
