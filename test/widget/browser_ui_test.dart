@@ -29,7 +29,7 @@ void main() {
 
       // Verify Brand elements
       expect(find.text('ZYNTH'), findsOneWidget);
-      expect(find.text('Performance • Autonomy • Clarity'), findsOneWidget);
+      expect(find.text('One Browser • Seven Visions'), findsOneWidget);
       expect(find.text('QUICK ACCESS'), findsOneWidget);
 
       // Verify quick shortcuts are visible
