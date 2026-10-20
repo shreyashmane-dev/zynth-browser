@@ -4,7 +4,16 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
+    <!-- Glowing outer aura -->
     <path
-        android:fillColor="#7C5CFC"
-        android:pathData="M54,24 L72,50 L54,50 L54,84 L36,50 L54,50 Z"/>
+        android:fillColor="#3300E5FF"
+        android:pathData="M24,24 L84,24 L84,38 L48,68 L84,68 L84,84 L24,84 L24,70 L60,40 L24,40 Z"/>
+    <!-- Stylized Zynth Z core -->
+    <path
+        android:fillColor="#00E5FF"
+        android:pathData="M26,26 L82,26 L82,36 L50,66 L82,66 L82,82 L26,82 L26,72 L58,42 L26,42 Z"/>
+    <!-- Top specular highlight -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M30,28 L78,28 L78,32 L30,32 Z"/>
 </vector>

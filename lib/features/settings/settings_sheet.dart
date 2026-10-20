@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 import '../../core/constants/app_constants.dart';
 import '../../core/theme/app_colors.dart';
 import '../../models/search_engine.dart';
+import '../../models/zynth_vision.dart';
 import '../../services/preferences_service.dart';
 import '../browser/browser_controller.dart';
+import '../browser/presentation/widgets/vision_selector_sheet.dart';
 import '../search/search_provider_factory.dart';
+import 'play_protection_sheet.dart';
+import 'privacy_policy_screen.dart';
 
 /// Comprehensive settings interface for Zynth Browser.
 class SettingsSheet extends StatefulWidget {
@@ -323,6 +327,189 @@ class _SettingsSheetState extends State<SettingsSheet> {
 
                 const SizedBox(height: 24),
 
+                // SECTION: 7 VISIONS DAILY ICONS & THEMES
+                _buildSectionHeader('7 VISIONS DAILY ICON & THEME'),
+                const SizedBox(height: 10),
+
+                Container(
+                  padding: const EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: AppColors.cardBg,
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(color: AppColors.border),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            width: 44,
+                            height: 44,
+                            decoration: BoxDecoration(
+                              color: AppColors.primaryMuted,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: const Icon(
+                              Icons.palette_rounded,
+                              color: AppColors.primary,
+                              size: 24,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          const Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'One Browser, Seven Visions',
+                                  style: TextStyle(
+                                    color: AppColors.textPrimary,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                SizedBox(height: 2),
+                                Text(
+                                  'Distinct custom icon and aesthetic for each day of the week',
+                                  style: TextStyle(
+                                    color: AppColors.textMuted,
+                                    fontSize: 11,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 14),
+                      SizedBox(
+                        width: double.infinity,
+                        child: OutlinedButton.icon(
+                          style: OutlinedButton.styleFrom(
+                            side: const BorderSide(color: AppColors.primary),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                          ),
+                          icon: const Icon(Icons.auto_awesome_rounded,
+                              color: AppColors.primary, size: 16),
+                          label: const Text(
+                            'Customize 7 Day Icons & Themes',
+                            style: TextStyle(
+                              color: AppColors.primary,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          onPressed: () {
+                            showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              backgroundColor: Colors.transparent,
+                              builder: (_) => VisionSelectorSheet(
+                                currentVision: _prefs.isVisionAutoDaily()
+                                    ? ZynthVision.forToday()
+                                    : ZynthVision.fromId(
+                                        _prefs.getSelectedVisionId()),
+                                onVisionSelected: (_) {
+                                  setState(() {});
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 24),
+
+                // SECTION: GOOGLE PLAY PROTECTION & SECURITY
+                _buildSectionHeader('GOOGLE PLAY PROTECTION & SECURITY'),
+                const SizedBox(height: 10),
+
+                Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.cardBg,
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(color: AppColors.border),
+                  ),
+                  child: Column(
+                    children: [
+                      ListTile(
+                        leading: const Icon(
+                          Icons.verified_user_rounded,
+                          color: AppColors.secureGreen,
+                        ),
+                        title: const Text(
+                          'Google Play Protection Guidelines',
+                          style: TextStyle(
+                            color: AppColors.textPrimary,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        subtitle: const Text(
+                          'Original icon set, minimal permissions, R8 code shrinking',
+                          style: TextStyle(
+                            color: AppColors.textSecondary,
+                            fontSize: 11,
+                          ),
+                        ),
+                        trailing: const Icon(
+                          Icons.chevron_right_rounded,
+                          color: AppColors.textMuted,
+                        ),
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            builder: (_) => const PlayProtectionSheet(),
+                          );
+                        },
+                      ),
+                      const Divider(color: AppColors.divider, height: 1),
+                      ListTile(
+                        leading: const Icon(
+                          Icons.policy_rounded,
+                          color: AppColors.secondary,
+                        ),
+                        title: const Text(
+                          'Privacy Policy',
+                          style: TextStyle(
+                            color: AppColors.textPrimary,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        subtitle: const Text(
+                          'Zero telemetry, local encrypted SQLite, HTTPS-only requests',
+                          style: TextStyle(
+                            color: AppColors.textSecondary,
+                            fontSize: 11,
+                          ),
+                        ),
+                        trailing: const Icon(
+                          Icons.chevron_right_rounded,
+                          color: AppColors.textMuted,
+                        ),
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => const PrivacyPolicyScreen(),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 24),
+
                 // SECTION: PRIVACY & SHIELDS
                 _buildSectionHeader('PRIVACY & SHIELDS'),
                 const SizedBox(height: 10),
@@ -413,8 +600,9 @@ class _SettingsSheetState extends State<SettingsSheet> {
                       SizedBox(height: 4),
                       Text(
                         'Target Platform: Android System WebView (Chromium core)\n'
-                        'Architecture: Flutter + Dart with extensible search providers and local SQLite storage.\n'
-                        'Future Desktop Target: Linux Chromium Embedded Framework (CEF).',
+                        'Package: com.zynth.browser\n'
+                        'Artwork: 7 Day Original Icon Set ("One Browser, Seven Visions")\n'
+                        'Architecture: Flutter + Dart with extensible OM Search backend and local SQLite storage.',
                         style: TextStyle(
                           color: AppColors.textMuted,
                           fontSize: 12,

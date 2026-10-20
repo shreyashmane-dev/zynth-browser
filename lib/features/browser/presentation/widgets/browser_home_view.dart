@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../models/search_engine.dart';
+import '../../../../models/zynth_vision.dart';
+import '../../../../services/preferences_service.dart';
 import '../../browser_controller.dart';
 import 'provider_selector_sheet.dart';
+import 'vision_selector_sheet.dart';
+import 'zynth_logo_widget.dart';
 
-/// The Zynth Browser branded home view with quick shortcuts, search bar,
-/// and engine status indicator.
+/// The Zynth Browser branded home view with the 7 Day Icon Set,
+/// quick shortcuts, search bar, and engine status indicator.
 class BrowserHomeView extends StatefulWidget {
   final BrowserController controller;
 
@@ -18,6 +22,8 @@ class BrowserHomeView extends StatefulWidget {
 
 class _BrowserHomeViewState extends State<BrowserHomeView> {
   final TextEditingController _searchController = TextEditingController();
+  final PreferencesService _prefs = PreferencesService();
+  late ZynthVision _activeVision;
 
   final List<Map<String, dynamic>> _quickShortcuts = [
     {
@@ -65,6 +71,20 @@ class _BrowserHomeViewState extends State<BrowserHomeView> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _loadActiveVision();
+  }
+
+  void _loadActiveVision() {
+    if (_prefs.isVisionAutoDaily()) {
+      _activeVision = ZynthVision.forToday();
+    } else {
+      _activeVision = ZynthVision.fromId(_prefs.getSelectedVisionId());
+    }
+  }
+
+  @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
@@ -90,6 +110,22 @@ class _BrowserHomeViewState extends State<BrowserHomeView> {
     );
   }
 
+  void _openVisionSheet() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => VisionSelectorSheet(
+        currentVision: _activeVision,
+        onVisionSelected: (vision) {
+          setState(() {
+            _activeVision = vision;
+          });
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final engine = widget.controller.activeEngine;
@@ -100,59 +136,102 @@ class _BrowserHomeViewState extends State<BrowserHomeView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(height: 24),
+          const SizedBox(height: 18),
 
-          // Zynth Branding Logo & Icon
-          Container(
-            width: 72,
-            height: 72,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [AppColors.primary, Color(0xFF5B34EA)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+          // Zynth 7 Day Logo Widget (Interactive tap to open 7 Visions selector)
+          GestureDetector(
+            onTap: _openVisionSheet,
+            child: Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: _activeVision.primaryColor.withOpacity(0.35),
+                    blurRadius: 32,
+                    offset: const Offset(0, 8),
+                  ),
+                ],
               ),
-              borderRadius: BorderRadius.circular(22),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.primary.withOpacity(0.35),
-                  blurRadius: 24,
-                  offset: const Offset(0, 8),
-                ),
-              ],
-            ),
-            child: const Icon(
-              Icons.bolt_rounded,
-              color: Colors.white,
-              size: 40,
+              child: ZynthLogoWidget(
+                vision: _activeVision,
+                size: 86,
+                showBadge: false,
+              ),
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 14),
 
           // Brand Title
           const Text(
             'ZYNTH',
             style: TextStyle(
               color: AppColors.textPrimary,
-              fontSize: 26,
+              fontSize: 28,
               fontWeight: FontWeight.w800,
-              letterSpacing: 3.0,
+              letterSpacing: 3.5,
             ),
           ),
           const SizedBox(height: 4),
+
+          // Daily Vision Pill Badge
+          GestureDetector(
+            onTap: _openVisionSheet,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              decoration: BoxDecoration(
+                color: _activeVision.primaryColor.withOpacity(0.12),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                  color: _activeVision.primaryColor.withOpacity(0.35),
+                ),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 7,
+                    height: 7,
+                    decoration: BoxDecoration(
+                      color: _activeVision.primaryColor,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  const SizedBox(width: 6),
+                  Text(
+                    'DAY ${_activeVision.dayNumber} • ${_activeVision.name.toUpperCase()}',
+                    style: TextStyle(
+                      color: _activeVision.primaryColor,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 0.8,
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    size: 14,
+                    color: _activeVision.primaryColor,
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 6),
           const Text(
-            'Performance • Autonomy • Clarity',
+            'One Browser • Seven Visions',
             style: TextStyle(
               color: AppColors.textMuted,
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
+              fontSize: 11,
+              fontWeight: FontWeight.w500,
               letterSpacing: 0.5,
             ),
           ),
 
-          const SizedBox(height: 28),
+          const SizedBox(height: 22),
 
-          // Search Engine Active Chip
+          // Active Engine Chip
           GestureDetector(
             onTap: _openProviderSheet,
             child: Container(

@@ -48,11 +48,29 @@ android {
         multiDexEnabled true
     }
 
+    signingConfigs {
+        release {
+            def keystoreFile = file('upload-keystore.jks')
+            if (keystoreFile.exists()) {
+                keyAlias 'upload'
+                keyPassword 'zynthbrowser'
+                storeFile keystoreFile
+                storePassword 'zynthbrowser'
+            } else {
+                signingConfig signingConfigs.debug
+            }
+        }
+    }
+
     buildTypes {
         release {
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             minifyEnabled false
             shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
 }
@@ -62,5 +80,5 @@ flutter {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
 }

@@ -17,6 +17,8 @@ class PreferencesService {
   String _memoryThemeMode = 'dark';
   bool _memoryAdBlock = true;
   bool _memoryJsEnabled = true;
+  String _memoryVisionId = 'auto';
+  bool _memoryVisionAutoDaily = true;
 
   /// Initialize SharedPreferences.
   Future<void> init() async {
@@ -83,5 +85,29 @@ class PreferencesService {
   Future<void> setJavaScriptEnabled(bool enabled) async {
     _memoryJsEnabled = enabled;
     await _prefs?.setBool(AppConstants.prefJsEnabled, enabled);
+  }
+
+  /// Check if auto daily vision switching is enabled. Default true.
+  bool isVisionAutoDaily() {
+    return _prefs?.getBool(AppConstants.prefVisionAutoDaily) ??
+        _memoryVisionAutoDaily;
+  }
+
+  /// Set auto daily vision switching status.
+  Future<void> setVisionAutoDaily(bool enabled) async {
+    _memoryVisionAutoDaily = enabled;
+    await _prefs?.setBool(AppConstants.prefVisionAutoDaily, enabled);
+  }
+
+  /// Get the selected vision ID ('auto', 'cosmic_core', 'minimal_flow', etc.).
+  String getSelectedVisionId() {
+    return _prefs?.getString(AppConstants.prefSelectedVision) ??
+        _memoryVisionId;
+  }
+
+  /// Persist the selected vision ID.
+  Future<void> setSelectedVisionId(String visionId) async {
+    _memoryVisionId = visionId;
+    await _prefs?.setString(AppConstants.prefSelectedVision, visionId);
   }
 }

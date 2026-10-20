@@ -38,6 +38,15 @@ class AppConstants {
   static const String prefThemeMode = 'zynth_theme_mode';
   static const String prefAdBlockEnabled = 'zynth_ad_block_enabled';
   static const String prefJsEnabled = 'zynth_js_enabled';
+  static const String prefSelectedVision = 'zynth_selected_vision';
+  static const String prefVisionAutoDaily = 'zynth_vision_auto_daily';
+
+  // App Metadata (Google Play Protection Guidelines)
+  static const String packageName = 'com.zynth.browser';
+  static const String appCategory = 'Tools & Communication';
+  static const String appShortDescription =
+      'A fast, customizable, and privacy-focused browser.';
+  static const String privacyPolicyUrl = 'https://zynthbrowser.dev/privacy';
 
   // Database
   static const String dbName = 'zynth_browser.db';
