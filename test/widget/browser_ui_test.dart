@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zynth_browser/core/theme/app_theme.dart';
 import 'package:zynth_browser/features/browser/browser_controller.dart';
 import 'package:zynth_browser/features/browser/presentation/widgets/browser_app_bar.dart';
@@ -7,6 +8,12 @@ import 'package:zynth_browser/features/browser/presentation/widgets/browser_bott
 import 'package:zynth_browser/features/browser/presentation/widgets/browser_home_view.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUp(() {
+    SharedPreferences.setMockInitialValues({});
+  });
+
   group('Browser UI Widget Tests', () {
     testWidgets('BrowserHomeView displays branding and search elements', (
       WidgetTester tester,
