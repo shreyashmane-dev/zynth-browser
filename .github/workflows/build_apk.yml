@@ -29,6 +29,14 @@ jobs:
           channel: 'stable'
           cache: true
 
+      - name: Generate Gradle Wrapper
+        run: |
+          cd android
+          gradle wrapper --gradle-version 8.4
+          chmod +x gradlew
+          ls -la gradlew gradle/wrapper/
+          cd ..
+
       - name: Generate Release Keystore
         run: |
           keytool -genkey -v -keystore android/app/upload-keystore.jks \
@@ -43,31 +51,19 @@ jobs:
         run: flutter test
 
       - name: Build Debug APK
-        run: |
-          flutter build apk --debug -v > build_debug.log 2>&1 || {
-            ERR=$(tail -n 25 build_debug.log | tr '\n' ' ')
-            echo "::error title=Debug Build Failure::$ERR"
-            tail -n 60 build_debug.log
-            exit 1
-          }
-          mkdir -p apks
-          cp build/app/outputs/flutter-apk/app-debug.apk apks/
+        run: flutter build apk --debug
 
       - name: Build Release APK
-        run: |
-          flutter build apk --release -v > build_release.log 2>&1 || {
-            ERR=$(tail -n 25 build_release.log | tr '\n' ' ')
-            echo "::error title=Release Build Failure::$ERR"
-            tail -n 60 build_release.log
-            exit 1
-          }
-          cp build/app/outputs/flutter-apk/app-release.apk apks/
+        run: flutter build apk --release
 
-      - name: Verify APKs in directory
-        run: ls -la apks/
+      - name: Copy and Locate APKs
+        run: |
+          mkdir -p dist
+          find build/ -name "*.apk" -exec cp -v {} dist/ \;
+          ls -la dist/
 
       - name: Upload All APK Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: zynth-browser-apks
-          path: apks/
+          path: dist/
