@@ -36,11 +36,13 @@ jobs:
 
       - name: Generate Gradle Wrapper
         run: |
-          cd android
+          mkdir /tmp/wrapper && cd /tmp/wrapper
           gradle wrapper --gradle-version 8.4
-          chmod +x gradlew
-          ls -la gradlew gradle/wrapper/
-          cd ..
+          cd -
+          cp /tmp/wrapper/gradlew android/
+          cp -r /tmp/wrapper/gradle/wrapper/gradle-wrapper.jar android/gradle/wrapper/
+          chmod +x android/gradlew
+          ls -la android/gradlew android/gradle/wrapper/
 
       - name: Generate Release Keystore
         run: |
