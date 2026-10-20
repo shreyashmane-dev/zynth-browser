@@ -154,7 +154,7 @@ class _BookmarksSheetState extends State<BookmarksSheet> {
             child: Container(
               width: 36,
               height: 4,
-              margin: const EdgeInsets.bottom(12),
+              margin: const EdgeInsets.only(bottom: 12),
               decoration: BoxDecoration(
                 color: AppColors.border,
                 borderRadius: BorderRadius.circular(2),

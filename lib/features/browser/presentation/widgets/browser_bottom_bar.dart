@@ -134,7 +134,7 @@ class BrowserBottomBar extends StatelessWidget {
             Container(
               width: 36,
               height: 4,
-              margin: const EdgeInsets.bottom(20),
+              margin: const EdgeInsets.only(bottom: 20),
               decoration: BoxDecoration(
                 color: AppColors.border,
                 borderRadius: BorderRadius.circular(2),
